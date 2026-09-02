@@ -34,3 +34,7 @@ discard_flow_annotations = False
 
 #Discard Assert_And_Cut True instead of generating them.
 discard_assert_and_cut_true = True
+
+#Optional directory where converted files are written (with their original
+#names) when in_place is False.
+output_dir = "src"

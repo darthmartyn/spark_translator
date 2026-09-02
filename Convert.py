@@ -5,7 +5,7 @@
 
 import re
 from shutil     import copyfile
-from os         import path, walk
+from os         import path, walk, makedirs
 from sys        import argv, exit
 import shutil
 
@@ -44,7 +44,7 @@ if len(files) == 0:
     exit (-1)
 
 
-from conv_conf               import extension
+from conv_conf               import extension, output_dir
 from Remove_Blank_Lines      import Remove_Blank_Lines
 from Pre_Process             import Pre_Process
 from Remove_Inherit          import Remove_Inherit
@@ -71,12 +71,22 @@ subprograms_return  = []
 
 files.sort(key=path.basename) #Alphabetically sort list of files.
 
+if in_place and output_dir is not None:
+    print("Warning: output_dir is ignored when in_place is True.")
+
+if not in_place and output_dir is not None:
+    makedirs(output_dir, exist_ok=True)
+
 
 #Iterate through files and convert them. We go in reverse so as to convert
 #"ads" files before "adb" files.
 for a_file in reversed (files):
     #Work on a copy (converted_file) of the original file.
-    converted_file = a_file + extension
+    if in_place or output_dir is None:
+        converted_file = a_file + extension
+    else:
+        converted_file = path.join(output_dir, path.basename(a_file))
+
     copyfile(a_file, converted_file)
 
     #Open converted_file and read all its lines. Text mode uses universal

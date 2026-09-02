@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 # Copyright (C) 2013, Altran UK Limited
 
 
@@ -47,8 +47,8 @@ def In_Loop(lines, line):
             counter = counter - 1
         elif re.search(" loop ", no_comments, re.I) or \
         re.search(" loop$", no_comments, re.I) or \
-        re.search("\)loop ", no_comments, re.I) or \
-        re.search("\)loop$", no_comments, re.I):
+        re.search(r"\)loop ", no_comments, re.I) or \
+        re.search(r"\)loop$", no_comments, re.I):
             counter = counter + 1
             if counter > 0:
                 #If counter becomes greater than 0, then we are inside a loop.
@@ -85,8 +85,8 @@ def Convert_Squized_Assertions (lines, exclude_while_lines):
 
         if re.search (" loop ", code_part, re.I) or \
         re.search (" loop$", code_part, re.I) or \
-        re.search ("\)loop ", code_part, re.I) or \
-        re.search ("\)loop$", code_part, re.I):
+        re.search (r"\)loop ", code_part, re.I) or \
+        re.search (r"\)loop$", code_part, re.I):
             return True
 
         return False
@@ -96,7 +96,7 @@ def Convert_Squized_Assertions (lines, exclude_while_lines):
     for line in range(len(lines)):
         if re.search("^ *while *$", lines[line], re.I) or \
         re.search("^ *while ", lines[line], re.I) or \
-        re.search("^ *while\(", lines[line], re.I):
+        re.search(r"^ *while\(", lines[line], re.I):
             while_lines.append(line)
 
     #Iterate over "while" loops and convert squized assertions.
@@ -225,7 +225,7 @@ def Convert_Assert (lines):
         #These cannot be mimicked as annotations in SPARK 2014. Instead the type
         #definition has to be modified. As we'd rather not modify the code, leave
         #it as it is and remove the annotation.
-        m = re.search("(\w+'base) is (\w+)", original_line, re.I)
+        m = re.search(r"(\w+'base) is (\w+)", original_line, re.I)
         if m:
             if not retain_original_annotations:
                 del lines[line]

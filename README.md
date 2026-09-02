@@ -25,8 +25,7 @@ The Translator is a python script that consists of:
    *  conv_conf.py (This is the configurations file)
 
 In order to run the Translator one needs the following:
-   *  Python has to be installed (not provided).
-   *  sparkformat has to be installed (and in the OS's path).
+   *  Python 3 has to be installed (not provided).
    *  All of the aforementioned scripts have to be under the same directory.
 
 How to invoke the Translator:
@@ -39,29 +38,30 @@ How to invoke the Translator:
 
       *  a file named test.adb which is under the current directory:
 
-            python ./Convert.py test.adb
+            python3 ./Convert.py test.adb
 
       *  all files that end in ".ads", ".adb" and ".ada" which are
          under directory "Examples":
 
-            python ./Convert.py some_path/Examples
+            python3 ./Convert.py some_path/Examples
 
       *  all files ending in ".adb" under directory "Examples":
 
-            python ./Convert.py some_path/*.adb
+            python3 ./Convert.py some_path/*.adb
 
       *  all files ending in ".ads" under directory "specs" and files
          "test.ads", "test.adb" and "test.ada" which are under the
          current directory:
 
-            python ./Convert.py some_path/specs/*.ads test.ad?
+            python3 ./Convert.py some_path/specs/*.ads test.ad?
 
 Things to keep in mind:
    *  The Translator assumes that the files that it tries to convert are
       proper SPARK files. If it is called on an invalid SPARK file, it may
       very well crash.
    *  The original files are not overwritten. Instead a new file with the
-      extension ".out" is created right next to the original file.
+      extension ".orig" (see conv_conf.py) is created right next to the
+      original file.
    *  The Translator is a work in progress and is far from perfect! A list of
       known limitations is included below.
 

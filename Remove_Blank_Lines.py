@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 # Copyright (C) 2013, Altran UK Limited
 
 #Removes blank lines and lines that just contain spaces.

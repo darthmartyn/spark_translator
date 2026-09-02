@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 # Copyright (C) 2013, Altran UK Limited
 
 #Converts "or" into "or else" and "and" into "and then".
@@ -179,9 +179,9 @@ def Convert_Equivalents(line):
     #Ensures that no space appears directly before ';'.
     new_line = re.sub(" *;", ";", new_line)
     #Ensures that no space appears directly before ')'.
-    new_line = re.sub(" *\)", ")", new_line)
+    new_line = re.sub(r" *\)", ")", new_line)
     #Ensures that no space appears directly after '('.
-    new_line = re.sub("\( *", "(", new_line)
+    new_line = re.sub(r"\( *", "(", new_line)
 
     return new_line
 
@@ -279,9 +279,9 @@ def Convert_Implies(line):
     #Ensures that no space appears directly before ';'.
     new_line = re.sub(" *;", ";", new_line)
     #Ensures that no space appears directly before ')'.
-    new_line = re.sub(" *\)", ")", new_line)
+    new_line = re.sub(r" *\)", ")", new_line)
     #Ensures that no space appears directly after '('.
-    new_line = re.sub("\( *", "(", new_line)
+    new_line = re.sub(r"\( *", "(", new_line)
 
     return new_line
 
@@ -291,8 +291,8 @@ def Convert_Implies(line):
 def Convert_Tildas(line):
     import re
 
-    line = re.sub("~ *\[", "'Old'Update (", line)
-    line = re.sub("\[", "'Update (", line)
+    line = re.sub(r"~ *\[", "'Old'Update (", line)
+    line = re.sub(r"\[", "'Update (", line)
     line = re.sub("]", ")", line)
     if re.search(";$", line):
         line = re.sub(";", ",", line)
@@ -510,19 +510,19 @@ def Pre_Process_Operators(line):
     line = re.sub(" *;", " ;", line)
 
     #Ensures that single space appears before ')'.
-    line = re.sub(" *\) *", " ) ", line)
+    line = re.sub(r" *\) *", " ) ", line)
 
     #Ensures that single space follows every '('.
-    line = re.sub(" *\( *", " ( ", line)
+    line = re.sub(r" *\( *", " ( ", line)
 
     #Ensures that single spaces surround '+'.
-    line = re.sub(" *\+ *", " + ", line)
+    line = re.sub(r" *\+ *", " + ", line)
 
     #Ensures that single spaces surround '-'.
     line = re.sub(" +- +", " - ", line)
 
     #Ensures that single spaces surround '*'.
-    line = re.sub(" *\* *", " * ", line)
+    line = re.sub(r" *\* *", " * ", line)
 
     #Ensures that single spaces surround '='.
     line = re.sub(" *= *", " = ", line)
@@ -543,7 +543,7 @@ def Pre_Process_Operators(line):
     line = re.sub(" *> *= *", " >= ", line)
 
     #Ensures that single spaces surround "**".
-    line = re.sub(" *\* *\* *", " ** ", line)
+    line = re.sub(r" *\* *\* *", " ** ", line)
 
     #Ensures that single spaces surround "=>".
     line = re.sub(" *= *> *", " => ", line)
@@ -599,7 +599,7 @@ def Place_Converted_Line(lines, line_number, converted_line, original_line, \
 
     if add_with:
         #add a "with" at the front of converted_line
-        converted_line = re.sub ("^( *)", "\g<1>with ", converted_line)
+        converted_line = re.sub (r"^( *)", r"\g<1>with ", converted_line)
         converted_line = re.sub ("^     ", "", converted_line)
 
     if retain_original_annotations:

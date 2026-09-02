@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 # Copyright (C) 2013, Altran UK Limited
 
 #Converts "--# pre", "--# post" and "--# return" annotations.
@@ -256,9 +256,9 @@ def Convert_Pre_Post_Return(lines, subprograms_pre, subprograms_post, \
         #Convert "or" into "or else" and "and" into "and then".
         lines[line] = Convert_And_Or(lines[line])
         #Ensures that no space appears directly before ')'.
-        lines[line] = re.sub(" *\)", ")", lines[line])
+        lines[line] = re.sub(r" *\)", ")", lines[line])
         #Ensures that no space appears directly after '('.
-        lines[line] = re.sub("\( *", "(", lines[line])
+        lines[line] = re.sub(r"\( *", "(", lines[line])
 
         #Annotations at package spec need to have a ';' in the end.
         if In_Spec (lines, line):

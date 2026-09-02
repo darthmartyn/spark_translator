@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 # Copyright (C) 2013, Altran UK Limited
 
 #The converted file will have the same as the original followed by extension.

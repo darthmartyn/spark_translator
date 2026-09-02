@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 # Copyright (C) 2013, Altran UK Limited
 
 #Takes as arguments a list of files/directories that are to be converted.
@@ -7,15 +7,14 @@ import re
 from shutil     import copyfile
 from os         import path, walk
 from sys        import argv, exit
-from subprocess import call
 import shutil
 
 
 if len(argv) == 1:
     #If no arguments were given. Then we print an example of a proper
     #invocation and exit.
-    print "Proper Usage:", argv[0], \
-    "file_or_dir_1 file_or_dir_2 file_or_dir_3 ..."
+    print("Proper Usage:", argv[0],
+          "file_or_dir_1 file_or_dir_2 file_or_dir_3 ...")
 
     exit (-1)
 else:
@@ -25,23 +24,23 @@ else:
             #If argument is a directory.
             for p, d, f in walk(argv[argument]):
                 for a_file in f:
-                    if re.search ("\.ad[abs]$", a_file, re.I):
+                    if re.search (r"\.ad[abs]$", a_file, re.I):
                         files.append(path.join(p, a_file))
         elif path.isfile(argv[argument]) and \
-        re.search ("\.ad[abs]$", argv [argument], re.I):
+        re.search (r"\.ad[abs]$", argv [argument], re.I):
             #If argument is a file that ends in ".ads", ".adb", or ".ada".
             files.append(argv[argument])
         else:
             #Argument is neither a valid file, nor a directory.
-            print "Argument ", argv[argument], \
-            " is neither a valid file, nor a directory."
+            print("Argument ", argv[argument],
+                  " is neither a valid file, nor a directory.")
 
             continue
 
 
 if len(files) == 0:
     #No ".ads", ".adb" or ".ada" files were found, hence we exit.
-    print "No \".ads\", \".adb\" or \".ada\" files were found. Exiting..."
+    print("No \".ads\", \".adb\" or \".ada\" files were found. Exiting...")
     exit (-1)
 
 
@@ -76,23 +75,23 @@ files.sort(key=path.basename) #Alphabetically sort list of files.
 #Iterate through files and convert them. We go in reverse so as to convert
 #"ads" files before "adb" files.
 for a_file in reversed (files):
-    #Call sparkformat on a copy (converted_file) of the original file.
+    #Work on a copy (converted_file) of the original file.
     converted_file = a_file + extension
     copyfile(a_file, converted_file)
-    call(["sparkformat", "-add_modes", converted_file])
 
-    #Open converted_file and read all its lines.
-    fd = open(converted_file, "rU") #Opening file descriptor for reading.
+    #Open converted_file and read all its lines. Text mode uses universal
+    #newlines so that \r\n line endings are normalized to \n on reading.
+    fd = open(converted_file, "r") #Opening file descriptor for reading.
     lines = fd.read().splitlines()  #Reading all lines of the file.
     fd.close()                      #Closing file descriptor.
 
-    f_name = re.sub ("\.ad.", ":", path.basename(a_file))
+    f_name = re.sub (r"\.ad.", ":", path.basename(a_file))
 
-    print a_file
+    print(a_file)
 
     file_with = set()
     for line in lines:
-        m = re.match(" *with ([\w\.]+)", line, re.I)
+        m = re.match(r" *with ([\w\.]+)", line, re.I)
         if m:
             file_with.add(m.group(1).lower())
 

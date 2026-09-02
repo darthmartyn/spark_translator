@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 # Copyright (C) 2013, Altran UK Limited
 
 #Combines annotations that spread over multiple lines, into oneliners.
@@ -118,17 +118,17 @@ def Pre_Process(lines):
 
             #Remove spaces that appear directly before ')'
             #if ")" is not the first non-space character.
-            if not re.search("^ *\)", lines[line]):
-                lines[line] = re.sub(" *\)", ")", lines[line])
+            if not re.search(r"^ *\)", lines[line]):
+                lines[line] = re.sub(r" *\)", ")", lines[line])
 
             #Remove spaces that appear directly after '('.
-            lines[line] = re.sub("\( *", "(", lines[line])
+            lines[line] = re.sub(r"\( *", "(", lines[line])
 
             #Ensures that a single space follows every ','.
             lines[line] = re.sub(", *", ", ", lines[line])
 
             #Remove spaces that appear directly before or after '.'.
-            lines[line] = re.sub(" *\. *", ".", lines[line])
+            lines[line] = re.sub(r" *\. *", ".", lines[line])
 
             #Remove trailing whitespaces (might introduced some ourselves).
             lines[line] = re.sub(" *$", "", lines[line])

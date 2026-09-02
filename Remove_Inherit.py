@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 # Copyright (C) 2013, Altran UK Limited
 
 #Removes "--# inherit" annotations.
@@ -14,7 +14,7 @@ def Remove_Inherit(lines, file_with):
         if m:
             blank = m.group('blank')
             units = m.group('units')
-            m = re.search("(?P<unit>[\w\.]+)[,; $](?P<units>.*)", units, re.I)
+            m = re.search(r"(?P<unit>[\w\.]+)[,; $](?P<units>.*)", units, re.I)
 
             while m:
                 unit = m.group('unit')
@@ -32,7 +32,7 @@ def Remove_Inherit(lines, file_with):
                         else:
                             lines = Insert_After(lines, newline, curline-1)
                         curline += 1
-                m = re.search("(?P<unit>[\w\.]+)[,; $](?P<units>.*)", units, re.I)
+                m = re.search(r"(?P<unit>[\w\.]+)[,; $](?P<units>.*)", units, re.I)
 
             #Delete line if not insertion happened and annotations are not kept.
             if curline == line and not retain_original_annotations:

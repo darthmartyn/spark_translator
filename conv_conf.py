@@ -14,11 +14,11 @@ spark_symbol = "#"
 
 #Enables the convertion of "and" into "and then" and "or" into "or else".
 #By default it is disabled (0). Set to anything but '0' in order to enable.
-and_then_or_else = 0
+and_then_or_else = 1
 
 #Retain original annotations when retain_original_annotations is set to
 #anything but 0.
-retain_original_annotations = 0
+retain_original_annotations = 1
 
 #------------------------------------------------------------------------------
 #The following settings should be set to True only when
@@ -27,13 +27,13 @@ retain_original_annotations = 0
 
 #Discard Refined_Global, Refined_Depends and Refined_Post instead of generating
 #them.
-discard_refined_annotations = True
+discard_refined_annotations = False
 
 #Discard Global and Depends instead of generating them.
 discard_flow_annotations = False
 
 #Discard Assert_And_Cut True instead of generating them.
-discard_assert_and_cut_true = True
+discard_assert_and_cut_true = False
 
 #Optional directory where converted files are written (with their original
 #names) when in_place is False.
